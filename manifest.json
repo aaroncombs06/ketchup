@@ -1,0 +1,21 @@
+{
+  "name": "Ketchup - Spontaneous Hangouts",
+  "short_name": "Ketchup",
+  "description": "Connect with friends who are free right now",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8b2323",
+  "icons": [
+    {
+      "src": "/images/ketchup-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/ketchup-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

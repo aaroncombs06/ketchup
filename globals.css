@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+
+    --primary: 0 59% 50%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 39 80% 92%;
+    --secondary-foreground: 0 59% 30%;
+
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+
+    --accent: 39 80% 92%;
+    --accent-foreground: 0 59% 30%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 59% 50%;
+
+    --radius: 0.5rem;
+
+    /* Mobile viewport fixes */
+    --vh: 1vh;
+    --sat: 0px; /* Safe area top */
+    --sab: 0px; /* Safe area bottom */
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 59% 50%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 39 80% 92%;
+    --secondary-foreground: 0 59% 30%;
+
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+
+    --accent: 39 80% 92%;
+    --accent-foreground: 0 59% 30%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 59% 50%;
+  }
+
+  /* Improve tap highlight for mobile */
+  a,
+  button,
+  [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Standard mobile input styling */
+  input,
+  select,
+  textarea {
+    @apply appearance-none;
+    font-size: 16px; /* Prevents iOS zoom */
+  }
+
+  /* Familiar iOS-style scrolling */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent content selection during taps */
+  .no-select {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+
+    /* Mobile optimizations */
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+    touch-action: manipulation;
+
+    /* Fix iOS 100vh issue */
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+  }
+
+  /* Proper text capitalization */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-transform: capitalize;
+  }
+
+  /* Improve touch targets */
+  button,
+  [role="button"],
+  a,
+  input,
+  select,
+  textarea {
+    @apply touch-manipulation;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Fix iOS input zoom */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  /* Prevent text selection on interactive elements */
+  button,
+  [role="button"],
+  a,
+  .no-select {
+    @apply select-none;
+  }
+}
+
+@layer utilities {
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  /* Enhanced touch feedback */
+  .touch-feedback {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .touch-feedback::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: inherit;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .touch-feedback:active::after {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 1;
+    transition: 0s;
+  }
+
+  /* Improved focus styles for accessibility */
+  .focus-ring {
+    @apply outline-none ring-offset-2 transition-shadow duration-200;
+  }
+
+  .focus-ring:focus-visible {
+    @apply ring-2 ring-ketchup-500;
+  }
+
+  /* Standard mobile button sizes for better touch targets */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Familiar pull-to-refresh animation */
+  @keyframes pull-indicator {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .pull-indicator {
+    animation: pull-indicator 1s linear infinite;
+  }
+
+  /* Familiar loading skeleton animation */
+  @keyframes skeleton-loading {
+    0% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0 50%;
+    }
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+  }
+}
